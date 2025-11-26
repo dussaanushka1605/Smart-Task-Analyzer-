@@ -1,5 +1,7 @@
 # Smart Task Analyzer
 
+GitHub Repository: https://github.com/dussaanushka1605/Smart-Task-Analyzer-
+
 A full-stack mini-application that helps teams reason about their backlog by blending a configurable scoring algorithm, clean Django APIs, and a lightweight vanilla-JS interface.
 
 ```
@@ -50,7 +52,42 @@ Then open http://localhost:5173 (ensure the Django server is running on 127.0.0.
 
 ---
 
-## Algorithm Explanation (≈ 360 words)
+## API Cheatsheet (Optional)
+
+### Analyze Tasks
+```
+POST http://127.0.0.1:8000/api/tasks/analyze/
+Content-Type: application/json
+
+{
+  "tasks": [
+    {
+      "title": "Fix login bug",
+      "due_date": "2025-11-30",
+      "estimated_hours": 3,
+      "importance": 8,
+      "dependencies": []
+    }
+  ],
+  "weights": {
+    "urgency": 1,
+    "importance": 1,
+    "effort": 1,
+    "dependency": 1
+  }
+}
+```
+
+### Suggest Top Tasks
+```
+GET http://127.0.0.1:8000/api/tasks/suggest/?tasks=[{"title":"Fix login bug","due_date":"2025-11-30","estimated_hours":3,"importance":8,"dependencies":[]}]
+```
+
+Both endpoints also accept JSON bodies for `tasks` (and optional `weights`) if you prefer POST/GET with payloads.
+
+---
+
+## Algorithm Explanation
 
 Every incoming task is normalized first. Dates are parsed and, when they fall on a weekend or holiday, shifted to the next business day to avoid artificially inflating urgency for items due on non-working days. Past-due dates remain untouched so the algorithm can recognise true overruns. Importance is clamped to the 1–10 scale, estimated hours are coerced to floats, and dependencies are canonicalized. When tasks reference each other by ID, title, or alias, those references are resolved into a dependency graph that powers both scoring and circular-detection logic.
 
