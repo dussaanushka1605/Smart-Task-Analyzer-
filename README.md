@@ -26,29 +26,38 @@ task-analyzer/
 
 ## Setup Instructions
 
-### Backend
+### Prerequisites
+Make sure you have:
+- Python 3.8+
+- Git installed
+
+### 🚀 Backend Setup (Django API)
 ```bash
 cd backend
 python -m venv .venv
-. .venv/Scripts/activate      # or source .venv/bin/activate on macOS/Linux
+.\.venv\Scripts\activate         # Windows
+# macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
+Backend will be available at **http://127.0.0.1:8000/**
 
-Run tests anytime:
+#### ✅ Run Tests
 ```bash
 cd backend
-python manage.py test tasks
+python manage.py test
 ```
 
-### Frontend
-The UI is a static bundle. The quickest way to preview it is:
+### 🌐 Frontend Setup (Static UI)
 ```bash
 cd frontend
-python -m http.server 5173
+python -m http.server 5173 --bind 127.0.0.1
 ```
-Then open http://localhost:5173 (ensure the Django server is running on 127.0.0.1:8000).
+Open http://127.0.0.1:5173/ (ensure the backend is running).
+
+### 🔁 Stop Servers
+Press `Ctrl + C` in each terminal window to stop the running server.
 
 ---
 
