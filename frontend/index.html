@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart Task Analyzer</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Smart Task Analyzer</h1>
+      <p>Capture your tasks, adjust scoring weights, and let the API prioritize the work.</p>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h2>Add a Task</h2>
+        <form id="task-form">
+          <div class="grid">
+            <label>
+              Title
+              <input type="text" id="title" required placeholder="e.g. Fix login bug" />
+            </label>
+            <label>
+              Due Date
+              <input type="date" id="due_date" required />
+            </label>
+            <label>
+              Estimated Hours
+              <input type="number" id="hours" min="0" step="0.25" required value="1" />
+            </label>
+            <label>
+              Importance (0-10)
+              <input type="number" id="importance" min="0" max="10" required value="5" />
+            </label>
+            <label class="full">
+              Dependencies (comma separated)
+              <input type="text" id="dependencies" placeholder="task-id, another-task" />
+            </label>
+          </div>
+          <div class="actions">
+            <button type="submit">Add Task</button>
+            <button type="button" id="clear-tasks" class="secondary">Clear Tasks</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Your Tasks</h2>
+          <span id="task-count">0 items</span>
+        </div>
+        <ul id="task-list" class="task-list"></ul>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Scoring Weights</h2>
+          <button type="button" id="reset-weights" class="secondary small">Reset</button>
+        </div>
+        <div class="weights" id="weight-controls"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Analysis</h2>
+          <button type="button" id="analyze-btn">Analyze Tasks</button>
+        </div>
+        <p class="hint">Make sure your backend is running on http://127.0.0.1:8000.</p>
+        <div id="status" class="status"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Results</h2>
+          <div class="segmented">
+            <button type="button" data-view="list" class="segmented-btn active">Ranked List</button>
+            <button type="button" data-view="matrix" class="segmented-btn">Eisenhower Matrix</button>
+          </div>
+        </div>
+        <div id="results"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Smart Task Analyzer &middot; Powered by Django + vanilla JS</p>
+    </footer>
+
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>
+
